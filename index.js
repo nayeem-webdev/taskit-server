@@ -1,5 +1,5 @@
 require("dotenv").config(); // Load environment variables from .env
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const express = require("express");
 const cors = require("cors");
 
@@ -42,6 +42,16 @@ async function run() {
       const uid = req.params.uid;
       const cursor = tasks.find({ uid: uid });
       const result = await cursor.toArray();
+      res.send(result);
+    });
+
+    app.put("/task/:id", async (req, res) => {
+      const id = req.params.id;
+      const { category } = req.body;
+      const result = await tasks.updateOne(
+        { _id: new ObjectId(id) },
+        { $set: { category: category } }
+      );
       res.send(result);
     });
 
