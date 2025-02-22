@@ -38,6 +38,20 @@ async function run() {
       res.send(result);
     });
 
+    app.get("/tasks/:uid", async (req, res) => {
+      const uid = req.params.uid;
+      const cursor = tasks.find({ uid: uid });
+      const result = await cursor.toArray();
+      res.send(result);
+    });
+
+    //** Adding a new User
+    app.post("/users", async (req, res) => {
+      console.log("hit");
+      const user = req.body;
+      const result = await users.insertOne(user);
+      res.send(result);
+    });
     // Example API route: Check server connection
     app.get("/", (req, res) => {
       res.send("Hello Worlds!");
