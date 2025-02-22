@@ -25,7 +25,7 @@ Make sure you have **Node.js** installed on your system.
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/your-username/taskit-client.git
+   git clone https://github.com/nayeem-webdev/taskit-server.git
 Navigate to the project folder:
 sh
 Copy
