@@ -55,6 +55,12 @@ async function run() {
       res.send(result);
     });
 
+    app.get("/task/:id", async (req, res) => {
+      const id = req.params.id;
+      const result = await tasks.findOne({ _id: new ObjectId(id) });
+      res.send(result);
+    });
+
     //** Adding a new User
     app.post("/users", async (req, res) => {
       const user = req.body;
@@ -69,6 +75,13 @@ async function run() {
         res.send(result);
       }
     });
+
+    app.delete("/task/del/:id", async (req, res) => {
+      const id = req.params.id;
+      const result = await tasks.deleteOne({ _id: new ObjectId(id) });
+      res.send(result);
+    });
+
     // Example API route: Check server connection
     app.get("/", (req, res) => {
       res.send("Hello Worlds!");
