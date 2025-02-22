@@ -47,10 +47,17 @@ async function run() {
 
     //** Adding a new User
     app.post("/users", async (req, res) => {
-      console.log("hit");
       const user = req.body;
-      const result = await users.insertOne(user);
-      res.send(result);
+      const query = { uid: user?.uid };
+      const isExist = await users.findOne(query);
+      if (isExist) {
+        return res
+          .status(200)
+          .send({ message: "Welcome Back", insertedId: null });
+      } else {
+        const result = await users.insertOne(user);
+        res.send(result);
+      }
     });
     // Example API route: Check server connection
     app.get("/", (req, res) => {
